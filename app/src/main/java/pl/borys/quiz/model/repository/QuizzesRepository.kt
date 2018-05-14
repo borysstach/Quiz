@@ -1,4 +1,4 @@
-package pl.borys.quiz.model
+package pl.borys.quiz.model.repository
 
 import io.reactivex.Observable
 import pl.borys.quiz.model.dto.QuizCard
