@@ -1,4 +1,4 @@
-package pl.borys.quiz
+package pl.borys.quiz.factory
 
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.model.dto.QuizDetails

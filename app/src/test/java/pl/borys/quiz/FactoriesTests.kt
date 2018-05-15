@@ -3,6 +3,8 @@ package pl.borys.quiz
 import org.junit.Test
 
 import org.junit.Assert.*
+import pl.borys.quiz.factory.AnswersFactory
+import pl.borys.quiz.factory.QuestionFactory
 
 class FactoriesTests {
     @Test

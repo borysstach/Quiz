@@ -42,6 +42,9 @@ dependencies {
     // Support
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    // Architecture Components
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
     // RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.13'
@@ -49,17 +52,13 @@ dependencies {
     implementation 'org.kodein.di:kodein-di-generic-jvm:5.0.0'
     implementation 'org.kodein.di:kodein-di-framework-android:5.0.0'
     // Tests
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    // Tests
     def mockito_version = '2.10.0'
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation 'android.arch.core:core-testing:1.1.1'
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
     androidTestImplementation 'com.github.tmurakami:dexopener:0.12.1'
-    //allow mock final classes in Android tests
+    // allow mock final classes in Android tests
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
