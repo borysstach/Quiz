@@ -6,6 +6,7 @@ object TestKodein {
 
     fun get() = Kodein {
         import(getQuizzesRepositoryModule(overrides = false), allowOverride = true)
+        import(getQuizzesListViewModelModule(overrides = false), allowOverride = true)
     }
 
     fun getWith(vararg module: Kodein.Module) = Kodein {

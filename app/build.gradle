@@ -12,7 +12,7 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.github.tmurakami.dexopener.DexOpenerAndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -60,5 +60,6 @@ dependencies {
     androidTestImplementation 'com.github.tmurakami:dexopener:0.12.1'
     // allow mock final classes in Android tests
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
