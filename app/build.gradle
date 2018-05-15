@@ -20,6 +20,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        String sharedTestDir = 'src/testShared/java'
+        test {
+            java.srcDir sharedTestDir
+        }
+        androidTest {
+            java.srcDir sharedTestDir
+        }
+    }
 }
 
 // To enable Parcelize, experimental kotlin Parcelable generator. Delete after this reach production.
@@ -41,6 +50,16 @@ dependencies {
     implementation 'org.kodein.di:kodein-di-framework-android:5.0.0'
     // Tests
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // Tests
+    def mockito_version = '2.10.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
+    androidTestImplementation 'com.github.tmurakami:dexopener:0.12.1'
+    //allow mock final classes in Android tests
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
