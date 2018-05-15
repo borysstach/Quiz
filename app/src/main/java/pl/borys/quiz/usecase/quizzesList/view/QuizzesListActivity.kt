@@ -4,10 +4,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import pl.borys.quiz.R
 
-class QuizListActivity : AppCompatActivity() {
+class QuizzesListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.quiz_list_activity)
+        setContentView(R.layout.quizzes_list_activity)
     }
 }
