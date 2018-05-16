@@ -1,4 +1,4 @@
-package pl.borys.quiz.model.di
+package pl.borys.quiz.di
 
 import org.kodein.di.Kodein
 

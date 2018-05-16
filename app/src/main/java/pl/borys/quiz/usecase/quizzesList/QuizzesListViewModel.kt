@@ -8,7 +8,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.kodein.di.generic.instance
 import pl.borys.quiz.common.viewModel.Response
-import pl.borys.quiz.model.di.KodeinProvider
+import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.model.repository.QuizzesRepository
 

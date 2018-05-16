@@ -4,7 +4,7 @@ import android.app.Activity
 import android.support.test.rule.ActivityTestRule
 import org.kodein.di.Kodein
 import pl.borys.quiz.di.TestKodein
-import pl.borys.quiz.model.di.KodeinProvider
+import pl.borys.quiz.di.KodeinProvider
 
 abstract class BaseActivityTestRule<T : Activity>(
         private val kodein: Kodein = TestKodein.get(),

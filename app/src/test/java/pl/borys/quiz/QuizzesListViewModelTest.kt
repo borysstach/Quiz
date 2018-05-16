@@ -19,7 +19,7 @@ import pl.borys.quiz.common.viewModel.Response
 import pl.borys.quiz.di.TestKodein
 import pl.borys.quiz.extensions.mock
 import pl.borys.quiz.factory.QuizFactory
-import pl.borys.quiz.model.di.KodeinProvider
+import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.model.dto.QuizDetails
 import pl.borys.quiz.model.repository.QuizzesRepository

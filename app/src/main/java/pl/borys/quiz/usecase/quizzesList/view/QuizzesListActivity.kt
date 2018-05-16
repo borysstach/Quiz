@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.quizzes_list_activity.*
 import org.kodein.di.generic.instance
 import pl.borys.quiz.R
-import pl.borys.quiz.model.di.KodeinProvider
+import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.usecase.quizzesList.QuizzesListResponse
 import pl.borys.quiz.usecase.quizzesList.QuizzesListViewModel

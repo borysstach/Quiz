@@ -1,4 +1,4 @@
-package pl.borys.quiz.model.di
+package pl.borys.quiz.di
 
 import android.support.annotation.VisibleForTesting
 import org.kodein.di.Kodein

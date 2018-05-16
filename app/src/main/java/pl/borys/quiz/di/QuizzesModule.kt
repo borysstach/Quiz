@@ -1,4 +1,4 @@
-package pl.borys.quiz.model.di
+package pl.borys.quiz.di
 
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
