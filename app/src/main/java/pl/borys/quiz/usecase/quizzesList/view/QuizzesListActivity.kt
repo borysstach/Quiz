@@ -11,6 +11,8 @@ import org.greenrobot.eventbus.Subscribe
 import org.kodein.di.generic.instance
 import pl.borys.quiz.R
 import pl.borys.quiz.common.view.RecyclerViewMargin
+import pl.borys.quiz.common.view.hideLoader
+import pl.borys.quiz.common.view.showLoader
 import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.usecase.quizzesList.QuizzesListResponse
@@ -46,9 +48,11 @@ class QuizzesListActivity : AppCompatActivity() {
     }
 
     private val showLoader: () -> Unit = {
+        coordinator.showLoader()
     }
 
     private val hideLoader: () -> Unit = {
+        coordinator.hideLoader()
     }
 
     private val changeMessage: (List<QuizCard>?) -> Unit = { quizzesCards ->
@@ -61,7 +65,7 @@ class QuizzesListActivity : AppCompatActivity() {
     }
 
     private val showError: (Throwable?) -> Unit = {
-        message.text = it?.message ?: "Error with no message"
+       //TODO show error
     }
 
     @Subscribe

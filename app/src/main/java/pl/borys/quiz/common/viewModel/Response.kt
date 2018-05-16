@@ -1,5 +1,7 @@
 package pl.borys.quiz.common.viewModel
 
+import pl.borys.quiz.common.errors.ErrorLogger.logErrorToConsoleAndCrashlytic
+
 class Response<out T>(val status: Status, val data: T?, val error: Throwable?) {
 
     fun map(onLoading: () -> Unit, onSuccess: (T?) -> Unit, onError: (Throwable?) -> Unit, onFinish: ()-> Unit) {
@@ -10,6 +12,7 @@ class Response<out T>(val status: Status, val data: T?, val error: Throwable?) {
                 onFinish()
             }
             Status.ERROR -> {
+                logErrorToConsoleAndCrashlytic(error)
                 onError(error)
                 onFinish()
             }
