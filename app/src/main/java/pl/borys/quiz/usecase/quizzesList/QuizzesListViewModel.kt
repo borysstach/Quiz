@@ -3,6 +3,7 @@ package pl.borys.quiz.usecase.quizzesList
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -47,6 +48,7 @@ class QuizzesListViewModel : ViewModel() {
     }
 
     private val postError: (Throwable) -> Unit = {
+        Log.e("Quiz", "exception: ", it)
         quizzesListsLiveData.setValue(Response.error(it))
     }
 

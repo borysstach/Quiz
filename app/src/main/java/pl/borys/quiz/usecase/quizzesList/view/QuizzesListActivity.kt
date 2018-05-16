@@ -58,7 +58,6 @@ class QuizzesListActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@QuizzesListActivity)
             adapter = QuizzesListAdapter(quizzesCards)
         }
-        message.text = quizzesCards?.map { it.title }.toString()
     }
 
     private val showError: (Throwable?) -> Unit = {
