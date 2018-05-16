@@ -1,3 +1,5 @@
 package pl.borys.quiz.usecase.quizzesList.events
 
-class QuizCardClickedEvent(val id: Long)
+import pl.borys.quiz.model.dto.QuizId
+
+class QuizCardClickedEvent(val id: QuizId)
