@@ -7,6 +7,7 @@ object KodeinProvider {
     var kodeinInstance = Kodein {
         import(quizzesModule)
         import(userAnswersModule)
+        import(getRetrofitModule)
     }
         private set
 
