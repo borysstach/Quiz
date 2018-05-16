@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import pl.borys.quiz.R
+import pl.borys.quiz.common.extensions.loadWithGlide
 import pl.borys.quiz.model.dto.QuizCard
 
 class QuizCardViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
@@ -16,8 +17,10 @@ class QuizCardViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     private val backgroundPhoto: ImageView = itemView.findViewById(R.id.backgroundPhoto)
 
     fun bind(quizCard: QuizCard?) {
-        title.text = quizCard?.title
-        //TODO: bind photo with glide
-        //TODO: bind user result
+        quizCard?.let{
+            title.text = it.title
+            //TODO: bind user result
+            backgroundPhoto.loadWithGlide(it.mainPhoto)
+        }
     }
 }
