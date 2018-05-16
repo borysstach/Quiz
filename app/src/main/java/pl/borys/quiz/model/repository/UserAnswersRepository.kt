@@ -9,5 +9,3 @@ interface UserAnswersRepository {
     fun getAnswers(quizId: Long): Observable<UserAnswers>
     fun putAnswers(quizId: Long, answers: UserAnswers): Observable<Boolean>
 }
-
-
