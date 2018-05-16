@@ -13,6 +13,7 @@ import pl.borys.quiz.common.viewModel.Response
 import pl.borys.quiz.di.TestKodein
 import pl.borys.quiz.di.getQuizzesListViewModelModule
 import pl.borys.quiz.factory.QuizFactory
+import pl.borys.quiz.helper.espresso.assertIsDisplayed
 import pl.borys.quiz.helper.espresso.hasText
 import pl.borys.quiz.helper.testRules.QuizzesListActivityTestRule
 import pl.borys.quiz.usecase.quizzesList.QuizzesListResponse
@@ -54,6 +55,6 @@ class QuizzesListActivityTest {
                         error
                 )
         )
-        //TODO: check if error is visible
+        R.id.fullscreenError.assertIsDisplayed()
     }
 }

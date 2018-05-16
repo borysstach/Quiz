@@ -12,6 +12,7 @@ import org.kodein.di.generic.instance
 import pl.borys.quiz.R
 import pl.borys.quiz.common.view.RecyclerViewMargin
 import pl.borys.quiz.common.view.hideLoader
+import pl.borys.quiz.common.view.showError
 import pl.borys.quiz.common.view.showLoader
 import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.model.dto.QuizCard
@@ -65,11 +66,11 @@ class QuizzesListActivity : AppCompatActivity() {
     }
 
     private val showError: (Throwable?) -> Unit = {
-       //TODO show error
+        coordinator.showError { getQuizzesList() }
     }
 
     @Subscribe
-    fun onQuizCardCLicked(event: QuizCardClickedEvent){
+    fun onQuizCardCLicked(event: QuizCardClickedEvent) {
         Log.d("open", event.id.toString())
         //TODO: open details
     }
