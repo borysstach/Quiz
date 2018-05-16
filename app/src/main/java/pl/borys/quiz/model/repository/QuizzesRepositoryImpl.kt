@@ -14,6 +14,12 @@ class QuizzesRepositoryImpl : QuizzesRepository {
                             title = "QuizTitle",
                             mainPhoto = Photo("https://i.imgur.com/Pw6DqCN.jpg"),
                             questions = 5
+                    ),
+                    QuizCard(
+                            id = 2L,
+                            title = "QuizTitle",
+                            mainPhoto = Photo("https://i.imgur.com/Pw6DqCN.jpg"),
+                            questions = 5
                     )
             ))
 

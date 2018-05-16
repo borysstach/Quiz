@@ -1,12 +1,13 @@
 package pl.borys.quiz.usecase.quizzesList.view
 
 import android.arch.lifecycle.Observer
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.quizzes_list_activity.*
 import org.kodein.di.generic.instance
 import pl.borys.quiz.R
+import pl.borys.quiz.common.view.RecyclerViewMargin
 import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.usecase.quizzesList.QuizzesListResponse
@@ -22,7 +23,7 @@ class QuizzesListActivity : AppCompatActivity() {
         getQuizzesList()
     }
 
-    private fun getQuizzesList(){
+    private fun getQuizzesList() {
         quizzesListVM.getQuizzesList().observe(this, processResponse)
     }
 
@@ -43,10 +44,12 @@ class QuizzesListActivity : AppCompatActivity() {
 
     private val changeMessage: (List<QuizCard>?) -> Unit = { quizzesCards ->
         recycler.apply {
+            val cardMarginInPixels = resources.getDimensionPixelSize(R.dimen.margin_tiny)
+            addItemDecoration(RecyclerViewMargin(cardMarginInPixels))
             layoutManager = LinearLayoutManager(this@QuizzesListActivity)
             adapter = QuizzesListAdapter(quizzesCards)
         }
-            message.text = quizzesCards?.map { it.title }.toString()
+        message.text = quizzesCards?.map { it.title }.toString()
     }
 
     private val showError: (Throwable?) -> Unit = {
