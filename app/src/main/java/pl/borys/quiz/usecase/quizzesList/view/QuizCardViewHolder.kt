@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import org.greenrobot.eventbus.EventBus
 import pl.borys.quiz.R
-import pl.borys.quiz.common.extensions.loadWithGlide
+import pl.borys.quiz.common.extensions.loadWithPlaceholder
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.usecase.quizzesList.events.QuizCardClickedEvent
 
@@ -23,7 +23,7 @@ class QuizCardViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         quizCard?.let{
             title.text = it.title
             //TODO: bind user result
-            backgroundPhoto.loadWithGlide(it.mainPhoto)
+            backgroundPhoto.loadWithPlaceholder(it.mainPhoto)
 
             itemView.setOnClickListener { _: View ->
                 EventBus.getDefault().post(QuizCardClickedEvent(quizCard.id))
