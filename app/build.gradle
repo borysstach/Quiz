@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -12,12 +11,21 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.github.tmurakami.dexopener.DexOpenerAndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        String sharedTestDir = 'src/testShared/java'
+        test {
+            java.srcDir sharedTestDir
+        }
+        androidTest {
+            java.srcDir sharedTestDir
         }
     }
 }
@@ -29,10 +37,41 @@ androidExtensions {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // Support
+    def supportVersion = '27.1.1'
+    implementation "com.android.support:appcompat-v7:$supportVersion"
+    implementation "com.android.support:design:$supportVersion"
+    implementation "com.android.support:recyclerview-v7:$supportVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    // Architecture Components
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    kapt "android.arch.lifecycle:compiler:1.1.1"
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.13'
+    // Dependency Injection
+    implementation 'org.kodein.di:kodein-di-generic-jvm:5.0.0'
+    implementation 'org.kodein.di:kodein-di-framework-android:5.0.0'
+    // Connection
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    // Event callbacks
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    // Photo
+    implementation "com.github.bumptech.glide:glide:4.7.1"
+    kapt 'com.github.bumptech.glide:compiler:4.7.1'
+    // Tests
+    def mockito_version = '2.10.0'
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
+    androidTestImplementation 'com.github.tmurakami:dexopener:0.12.1'
+    // allow mock final classes in Android tests
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
