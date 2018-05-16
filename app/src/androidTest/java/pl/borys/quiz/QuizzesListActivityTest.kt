@@ -36,14 +36,14 @@ class QuizzesListActivityTest {
     var activityRule = QuizzesListActivityTestRule(TestKodein.getWith(quizzesViewModelModule))
 
     @Test
-    fun should_ShowSuccessData() {
+    fun should_ShowTitle() {
         val data = listOf(QuizFactory.getQuizCard())
         quizzesLiveData.postValue(
                 Response.success(
                         data
                 )
         )
-        R.id.message hasText data.map { it.title }.toString()
+        R.id.title hasText QuizFactory.TITLE
     }
 
     @Test

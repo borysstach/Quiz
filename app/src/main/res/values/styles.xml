@@ -10,11 +10,11 @@
 
     <style name="TextBig">
         <item name="android:textSize">@dimen/text_big</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
     <style name="TextSmall">
         <item name="android:textSize">@dimen/text_small</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
 </resources>

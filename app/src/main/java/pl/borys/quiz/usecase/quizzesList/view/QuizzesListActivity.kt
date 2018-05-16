@@ -3,6 +3,7 @@ package pl.borys.quiz.usecase.quizzesList.view
 import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.quizzes_list_activity.*
 import org.kodein.di.generic.instance
 import pl.borys.quiz.R
@@ -41,7 +42,11 @@ class QuizzesListActivity : AppCompatActivity() {
     }
 
     private val changeMessage: (List<QuizCard>?) -> Unit = { quizzesCards ->
-        message.text = quizzesCards?.map { it.title }.toString()
+        recycler.apply {
+            layoutManager = LinearLayoutManager(this@QuizzesListActivity)
+            adapter = QuizzesListAdapter(quizzesCards)
+        }
+            message.text = quizzesCards?.map { it.title }.toString()
     }
 
     private val showError: (Throwable?) -> Unit = {
