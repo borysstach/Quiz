@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">Quiz</string>
-    <string name="error_message">Coś poszło nie tak!\nNasi programiści najprawdopodobniej już pracują nad rozwiazaniem.\nOdśwież lub wróć do nas później. </string>
-    <string name="refresh">Odśwież</string>
 </resources>

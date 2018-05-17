@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class QuizDetails(
-        val id: QuizId,
+        val id: Long,
         val title: String,
         val mainPhoto: Photo,
         val questions: List<Question>
