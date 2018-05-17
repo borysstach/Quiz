@@ -12,24 +12,27 @@ import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.model.dto.QuizDetails
 import pl.borys.quiz.model.dto.QuizId
 import pl.borys.quiz.model.repository.QuizzesRepository
+import pl.borys.quiz.usecase.quizDetails.dto.QuizPage
 
-typealias QuizDetailsResponse = Response<QuizDetails>
+typealias QuizPageResponse = Response<QuizPage>
 
 class QuizDetailsViewModel : ViewModel() {
-    private val quizDetailsLiveData: MutableLiveData<QuizDetailsResponse> = MutableLiveData()
+    private val quizDetailsLiveData: MutableLiveData<QuizPageResponse> = MutableLiveData()
     private val quizzesRepository: QuizzesRepository by KodeinProvider.kodeinInstance.instance()
     private var quizDisposable: Disposable? = null
+    private var quizDetails: QuizDetails? = null
+    private var answers: List<Boolean> = listOf()
 
-    fun getQuizDetails(quizId: QuizId): LiveData<QuizDetailsResponse> {
-        val neverCalled = quizDetailsLiveData.value == null
-        val wasError = quizDetailsLiveData.value?.isError() ?: true
+    fun observeQuizPages(quizId: QuizId): LiveData<QuizPageResponse> {
+        val neverCalled = quizDetails == null
+        val wasError = quizDetailsLiveData.value?.isError() ?: false
         if (neverCalled || wasError) {
             getQuizDetailsFromRepo(quizId)
         }
         return quizDetailsLiveData
     }
 
-    private fun getQuizDetailsFromRepo(quizId: QuizId){
+    private fun getQuizDetailsFromRepo(quizId: QuizId) {
         quizDisposable = quizzesRepository.getQuizDetails(quizId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -37,13 +40,28 @@ class QuizDetailsViewModel : ViewModel() {
                     postLoading()
                 }
                 .subscribe(
-                        postSuccess,
+                        saveDetails,
                         postError
                 )
     }
 
-    private val postSuccess: (QuizDetails) -> Unit = {
-        quizDetailsLiveData.setValue(Response.success(it))
+
+    private val saveDetails: (QuizDetails) -> Unit = {
+        quizDetails = it
+        postNextQuestion()
+    }
+
+    private fun postNextQuestion() {
+        if(quizDetails != null) {
+            val pageIndex = answers.size
+            val nextQuestion = quizDetails!!.questions[pageIndex]
+            val nextPage = QuizPage(
+                    page = pageIndex,
+                    pages = quizDetails!!.questions.size,
+                    question = nextQuestion
+            )
+            quizDetailsLiveData.setValue(Response.success(nextPage))
+        }
     }
 
     private val postError: (Throwable) -> Unit = {

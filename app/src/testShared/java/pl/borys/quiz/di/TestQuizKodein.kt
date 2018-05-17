@@ -14,8 +14,8 @@ import pl.borys.quiz.factory.QuizFactory
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.model.dto.QuizDetails
 import pl.borys.quiz.model.repository.QuizzesRepository
-import pl.borys.quiz.usecase.quizDetails.QuizDetailsResponse
 import pl.borys.quiz.usecase.quizDetails.QuizDetailsViewModel
+import pl.borys.quiz.usecase.quizDetails.QuizPageResponse
 import pl.borys.quiz.usecase.quizzesList.QuizzesListResponse
 import pl.borys.quiz.usecase.quizzesList.QuizzesListViewModel
 
@@ -68,11 +68,11 @@ fun getQuizDetailsViewModelModule(
 
 private fun mockQuizDetailsViewModel(): QuizDetailsViewModel {
     val newVoteVM = Mockito.mock(QuizDetailsViewModel::class.java)
-    val liveData: MutableLiveData<QuizDetailsResponse> = MutableLiveData()
+    val liveData: MutableLiveData<QuizPageResponse> = MutableLiveData()
     liveData.postValue(
             Response.success(
-                    QuizFactory.getQuizDetails()
+                    QuizFactory.getQuizPage()
             ))
-    Mockito.`when`(newVoteVM.getQuizDetails(anyLong())).thenReturn(liveData)
+    Mockito.`when`(newVoteVM.observeQuizPages(anyLong())).thenReturn(liveData)
     return newVoteVM
 }

@@ -24,8 +24,9 @@ import pl.borys.quiz.factory.QuizFactory
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.model.dto.QuizDetails
 import pl.borys.quiz.model.repository.QuizzesRepository
-import pl.borys.quiz.usecase.quizDetails.QuizDetailsResponse
 import pl.borys.quiz.usecase.quizDetails.QuizDetailsViewModel
+import pl.borys.quiz.usecase.quizDetails.QuizPageResponse
+import pl.borys.quiz.usecase.quizDetails.dto.QuizPage
 import java.util.concurrent.TimeUnit
 
 
@@ -42,17 +43,17 @@ class QuizDetailsViewModelTest {
     }
 
     private val quizDetailsVM by lazy { QuizDetailsViewModel() }
-    private val observer = mock<Observer<QuizDetailsResponse>>()
+    private val observer = mock<Observer<QuizPageResponse>>()
     private var getQuizDetailsCalled = 0
     private val QUIZ_ID = 1L
 
 
     @Test
     fun getQuizDetails_CallForRepository_OnlyOnce_whenSuccess(){
-        initWithQuizzesList()
+        initWithQuizzesList(delay = 0)
         getQuizDetailsCalled = 0
-        quizDetailsVM.getQuizDetails(QUIZ_ID).observeForever(observer)
-        quizDetailsVM.getQuizDetails(QUIZ_ID).observeForever(observer)
+        quizDetailsVM.observeQuizPages(QUIZ_ID).observeForever(observer)
+        quizDetailsVM.observeQuizPages(QUIZ_ID).observeForever(observer)
         assertEquals(1, getQuizDetailsCalled)
     }
 
@@ -60,29 +61,28 @@ class QuizDetailsViewModelTest {
     fun getQuizDetails_CallForRepository_Again_WhenError(){
         initWithQuizzesList(delay = 0, error = Throwable("some dangerous error"))
         getQuizDetailsCalled = 0
-        quizDetailsVM.getQuizDetails(QUIZ_ID).observeForever(observer)
-        quizDetailsVM.getQuizDetails(QUIZ_ID).observeForever(observer)
+        quizDetailsVM.observeQuizPages(QUIZ_ID).observeForever(observer)
+        quizDetailsVM.observeQuizPages(QUIZ_ID).observeForever(observer)
         assertEquals(2, getQuizDetailsCalled)
     }
 
     @Test
     fun getQuizDetails_ReturnLoadResponse_WhileDataIsFetched() {
         initWithQuizzesList()
-        quizDetailsVM.getQuizDetails(QUIZ_ID).observeForever(observer)
+        quizDetailsVM.observeQuizPages(QUIZ_ID).observeForever(observer)
 
         verify(observer).onChanged(Response.loading())
     }
 
     @Test
-    fun getQuizDetails_ReturnData_AfterFetchedDelay() {
-        val delay = 3L
+    fun getQuizDetails_ReturnFirstQuestion() {
         val data = QuizFactory.getQuizDetails()
+        initWithQuizzesList(quizDetails = data, delay = 0)
+        quizDetailsVM.observeQuizPages(QUIZ_ID).observeForever(observer)
+        Thread.sleep(1000)
 
-        initWithQuizzesList(quizDetails = data, delay = delay)
-        quizDetailsVM.getQuizDetails(QUIZ_ID).observeForever(observer)
-        Thread.sleep((delay + 1) * 1000)
-
-        verify(observer).onChanged(Response.success(data))
+        val expectedPage = QuizPage(page = 0, pages = data.questions.size, question = data.questions[0])
+        verify(observer).onChanged(Response.success(expectedPage))
     }
 
     @Test
@@ -90,7 +90,7 @@ class QuizDetailsViewModelTest {
         val error = Throwable("some dangerous error")
 
         initWithQuizzesList(delay = 0, error = error)
-        quizDetailsVM.getQuizDetails(QUIZ_ID).observeForever(observer)
+        quizDetailsVM.observeQuizPages(QUIZ_ID).observeForever(observer)
         Thread.sleep(1000)
 
         verify(observer).onChanged(Response.error(error))

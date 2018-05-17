@@ -48,7 +48,7 @@ class QuizzesListViewModelTest {
 
     @Test
     fun getQuizzesList_CallForRepository_OnlyOnce_whenSuccess(){
-        initWithQuizzesList()
+        initWithQuizzesList(delay = 0)
         getQuizzesListCalled = 0
         quizzesListVM.getQuizzesList().observeForever(observer)
         quizzesListVM.getQuizzesList().observeForever(observer)
