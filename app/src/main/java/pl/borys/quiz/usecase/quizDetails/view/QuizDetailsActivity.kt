@@ -1,4 +1,4 @@
-package pl.borys.quiz.usecase.quizDetails
+package pl.borys.quiz.usecase.quizDetails.view
 
 import android.arch.lifecycle.Observer
 import android.content.Context
@@ -15,6 +15,8 @@ import pl.borys.quiz.common.view.showError
 import pl.borys.quiz.common.view.showLoader
 import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.model.dto.QuizId
+import pl.borys.quiz.usecase.quizDetails.QuizDetailsViewModel
+import pl.borys.quiz.usecase.quizDetails.QuizPageResponse
 import pl.borys.quiz.usecase.quizDetails.dto.QuizPage
 
 class QuizDetailsActivity : AppCompatActivity() {
@@ -58,7 +60,12 @@ class QuizDetailsActivity : AppCompatActivity() {
             quizTitle.text = it.quizTitle
             questionImage.loadWithPlaceholder(it.question.image)
             question.text = it.question.text
-            //TODO: bind answers
+            answers.apply {
+                bind(it.question.answers)
+                setOnAnswerClickListener {
+                    //TODO: post event to viewModel
+                }
+            }
         }
     }
 

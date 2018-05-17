@@ -15,7 +15,7 @@ import pl.borys.quiz.common.view.showError
 import pl.borys.quiz.common.view.showLoader
 import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.model.dto.QuizCard
-import pl.borys.quiz.usecase.quizDetails.QuizDetailsActivity
+import pl.borys.quiz.usecase.quizDetails.view.QuizDetailsActivity
 import pl.borys.quiz.usecase.quizzesList.QuizzesListResponse
 import pl.borys.quiz.usecase.quizzesList.QuizzesListViewModel
 import pl.borys.quiz.usecase.quizzesList.events.QuizCardClickedEvent

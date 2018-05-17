@@ -12,6 +12,7 @@ import org.mockito.Mockito.mock
 import pl.borys.quiz.common.viewModel.Response
 import pl.borys.quiz.di.TestKodein
 import pl.borys.quiz.di.getQuizDetailsViewModelModule
+import pl.borys.quiz.factory.AnswersFactory
 import pl.borys.quiz.factory.QuestionFactory
 import pl.borys.quiz.factory.QuizFactory
 import pl.borys.quiz.helper.espresso.assertIsDisplayed
@@ -67,5 +68,15 @@ class QuizDetailsActivityTest {
                 )
         )
         R.id.question hasText QuestionFactory.TEXT
+    }
+
+    @Test
+    fun should_ShowAnswer() {
+        quizLiveData.postValue(
+                Response.success(
+                        QuizFactory.getQuizPage()
+                )
+        )
+        R.id.answer hasText AnswersFactory.TEXT
     }
 }
