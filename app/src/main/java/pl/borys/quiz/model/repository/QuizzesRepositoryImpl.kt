@@ -1,10 +1,10 @@
 package pl.borys.quiz.model.repository
 
 import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import pl.borys.quiz.common.retrofit.RetrofitProvider
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.model.dto.QuizDetails
-import java.lang.Exception
 
 class QuizzesRepositoryImpl : QuizzesRepository {
     private val quizApi = RetrofitProvider.get().create(QuizApi::class.java)
@@ -16,7 +16,14 @@ class QuizzesRepositoryImpl : QuizzesRepository {
     }
 
     override fun getQuizDetails(quizId: Long): Observable<QuizDetails> =
-            Observable.error(Exception("Not implemented yet :("))
+            quizApi.getQuizDetails(quizId)
+                    .observeOn(Schedulers.computation())
+                    .map {
+                        it.copy(questions = it
+                                .questions
+                                .sortedBy { it.order }
+                        )
+                    }
 
     companion object {
         const val ITEMS_PER_PAGE = 50

@@ -7,6 +7,7 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
 import pl.borys.quiz.common.isRelease
+import pl.borys.quiz.common.retrofit.BooleanTypeAdapter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,7 +17,7 @@ val getRetrofitModule = Kodein.Module {
         Retrofit.Builder()
                 .baseUrl("https://quiz.o2.pl/api/v1/")
                 .client(getOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+                .addConverterFactory(getGsonConverterFactory())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
     }
@@ -36,3 +37,10 @@ private fun getLoggingInterceptor(): HttpLoggingInterceptor =
                         HttpLoggingInterceptor.Level.BODY
                     }
         }
+
+private fun getGsonConverterFactory()=
+    GsonConverterFactory.create(
+            GsonBuilder()
+                    .registerTypeAdapter(Boolean::class.java, BooleanTypeAdapter())
+                    .create()
+    )

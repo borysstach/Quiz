@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import io.reactivex.Observable
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.schedulers.Schedulers
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -13,24 +14,23 @@ import org.junit.runners.JUnit4
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
-import org.mockito.Mockito.*
+import org.mockito.Mockito.verify
 import pl.borys.quiz.common.extensions.emitAfter
 import pl.borys.quiz.common.viewModel.Response
+import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.di.TestKodein
 import pl.borys.quiz.extensions.mock
 import pl.borys.quiz.factory.QuizFactory
-import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.model.dto.QuizDetails
 import pl.borys.quiz.model.repository.QuizzesRepository
 import pl.borys.quiz.usecase.quizzesList.QuizzesListResponse
 import pl.borys.quiz.usecase.quizzesList.QuizzesListViewModel
 import java.util.concurrent.TimeUnit
-import org.junit.Assert.*
 
 
 @RunWith(JUnit4::class)
-class VoteViewModelTest {
+class QuizzesListViewModelTest {
 
     @Rule
     @JvmField
@@ -48,7 +48,7 @@ class VoteViewModelTest {
 
     @Test
     fun getQuizzesList_CallForRepository_OnlyOnce_whenSuccess(){
-        initWithQuizzesList()
+        initWithQuizzesList(delay = 0)
         getQuizzesListCalled = 0
         quizzesListVM.getQuizzesList().observeForever(observer)
         quizzesListVM.getQuizzesList().observeForever(observer)
@@ -57,7 +57,7 @@ class VoteViewModelTest {
 
     @Test
     fun getQuizzesList_CallForRepository_Again_WhenError(){
-        initWithQuizzesList(delay = 0, error = Throwable())
+        initWithQuizzesList(delay = 0, error = Throwable("some dangerous error"))
         getQuizzesListCalled = 0
         quizzesListVM.getQuizzesList().observeForever(observer)
         quizzesListVM.getQuizzesList().observeForever(observer)

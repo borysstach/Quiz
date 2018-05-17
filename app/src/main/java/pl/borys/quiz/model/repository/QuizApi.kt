@@ -18,5 +18,5 @@ interface QuizApi {
     @GET("quiz/{quiz_id}/0")
     fun getQuizDetails(
             @Path("quiz_id") quizId: QuizId
-    ): Observable<List<QuizDetails>>
+    ): Observable<QuizDetails>
 }

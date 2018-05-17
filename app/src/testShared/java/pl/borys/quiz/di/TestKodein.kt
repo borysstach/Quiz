@@ -7,6 +7,7 @@ object TestKodein {
     fun get() = Kodein {
         import(getQuizzesRepositoryModule(overrides = false), allowOverride = true)
         import(getQuizzesListViewModelModule(overrides = false), allowOverride = true)
+        import(getQuizDetailsViewModelModule(overrides = false), allowOverride = true)
         import(getRetrofitModule(), allowOverride = false)
     }
 

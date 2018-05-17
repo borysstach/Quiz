@@ -14,6 +14,7 @@ import pl.borys.quiz.di.TestKodein
 import pl.borys.quiz.di.getQuizzesListViewModelModule
 import pl.borys.quiz.factory.QuizFactory
 import pl.borys.quiz.helper.espresso.assertIsDisplayed
+import pl.borys.quiz.helper.espresso.click
 import pl.borys.quiz.helper.espresso.hasText
 import pl.borys.quiz.helper.testRules.QuizzesListActivityTestRule
 import pl.borys.quiz.usecase.quizzesList.QuizzesListResponse
@@ -38,10 +39,9 @@ class QuizzesListActivityTest {
 
     @Test
     fun should_ShowTitle() {
-        val data = listOf(QuizFactory.getQuizCard())
         quizzesLiveData.postValue(
                 Response.success(
-                        data
+                        listOf(QuizFactory.getQuizCard())
                 )
         )
         R.id.title hasText QuizFactory.TITLE
@@ -56,5 +56,16 @@ class QuizzesListActivityTest {
                 )
         )
         R.id.fullscreenError.assertIsDisplayed()
+    }
+
+    @Test
+    fun should_StartQuizDetails() {
+        quizzesLiveData.postValue(
+                Response.success(
+                        listOf(QuizFactory.getQuizCard())
+                )
+        )
+        R.id.quizCardContainer.click()
+        R.id.quizDetailsContainer.assertIsDisplayed()
     }
 }
