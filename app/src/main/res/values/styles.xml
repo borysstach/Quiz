@@ -8,13 +8,31 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="TextBig">
+    <style name="TextBigLight">
         <item name="android:textSize">@dimen/text_big</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
-    <style name="TextSmall">
+    <style name="TextSmallLight">
         <item name="android:textSize">@dimen/text_small</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
+
+    <style name="TextBigDark">
+        <item name="android:textSize">@dimen/text_big</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+    <style name="TextMediumDark">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+    <style name="TextSmallDark">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+    <style name="TextHugeDark">
+        <item name="android:textSize">@dimen/text_huge</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 </resources>

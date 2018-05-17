@@ -18,6 +18,7 @@ import pl.borys.quiz.model.dto.QuizId
 import pl.borys.quiz.usecase.quizDetails.QuizDetailsViewModel
 import pl.borys.quiz.usecase.quizDetails.QuizPageResponse
 import pl.borys.quiz.usecase.quizDetails.dto.QuizPage
+import pl.borys.quiz.usecase.success.SuccessScreenActivity
 
 class QuizDetailsActivity : AppCompatActivity() {
 
@@ -72,8 +73,11 @@ class QuizDetailsActivity : AppCompatActivity() {
     }
 
     private fun observeViewModelActions(){
-        quizDetailsVM.observeOpenSuccessScreenAction(this, Observer {
-            //TODO: open success screen
+        quizDetailsVM.observeOpenSuccessScreenAction(this, Observer { successBundle->
+            successBundle?.let {
+                finish()
+                SuccessScreenActivity.start(this, successBundle)
+            }
         })
     }
 

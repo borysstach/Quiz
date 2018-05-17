@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Quiz</string>
+    <!-- error -->
+    <string name="sad_face">:(</string>
     <string name="error_message">Coś poszło nie tak!\nNasi programiści najprawdopodobniej już pracują nad rozwiazaniem.\nOdśwież lub wróć do nas później. </string>
     <string name="refresh">Odśwież</string>
-    <string name="sad_face">:(</string>
+    <!-- success -->
+    <string name="bravo">Brawo!</string>
+    <string name="score_header">Twój wynik:</string>
+    <string name="try_again">Rozwiąż jeszcze raz</string>
+    <string name="comeback_home">Przejdź do listy quizów</string>
+    <string name="score">%d%%</string>
 </resources>
