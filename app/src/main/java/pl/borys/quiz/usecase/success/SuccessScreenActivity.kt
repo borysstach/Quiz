@@ -9,6 +9,8 @@ import pl.borys.quiz.R
 import pl.borys.quiz.common.extensions.extra
 import pl.borys.quiz.common.extensions.extraParcelable
 import pl.borys.quiz.model.dto.QuizId
+import pl.borys.quiz.usecase.quizDetails.view.QuizDetailsActivity
+import pl.borys.quiz.usecase.quizzesList.view.QuizzesListActivity
 import pl.borys.quiz.usecase.success.dto.AnswersWrapper
 import pl.borys.quiz.usecase.success.dto.SuccessScreenStartBundle
 
@@ -36,13 +38,14 @@ class SuccessScreenActivity : AppCompatActivity() {
 
     private fun bindTryAgainButton(){
         tryAgain.setOnClickListener {
-            //TODO: open activity
+            finish()
+            QuizDetailsActivity.start(this, quizId)
         }
     }
 
     private fun bindComebackHomeButton(){
         comebackHome.setOnClickListener {
-            //TODO: open activity
+            QuizzesListActivity.start(this)
         }
     }
 

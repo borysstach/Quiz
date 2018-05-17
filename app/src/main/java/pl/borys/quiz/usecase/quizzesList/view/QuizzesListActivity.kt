@@ -1,6 +1,8 @@
 package pl.borys.quiz.usecase.quizzesList.view
 
 import android.arch.lifecycle.Observer
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -68,6 +70,17 @@ class QuizzesListActivity : AppCompatActivity() {
                 QuizDetailsActivity.start(this, quizId)
             }
         })
+    }
+
+    companion object {
+        fun start(context: Context){
+            context.startActivity(getIntent(context))
+        }
+
+        fun getIntent(context: Context) =
+                Intent(context, QuizzesListActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
     }
 
 }

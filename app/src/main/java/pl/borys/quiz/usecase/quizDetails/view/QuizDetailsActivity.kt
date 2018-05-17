@@ -75,6 +75,7 @@ class QuizDetailsActivity : AppCompatActivity() {
     private fun observeViewModelActions(){
         quizDetailsVM.observeOpenSuccessScreenAction(this, Observer { successBundle->
             successBundle?.let {
+                finish()
                 SuccessScreenActivity.start(this, successBundle)
             }
         })
