@@ -58,6 +58,7 @@ class QuizDetailsViewModel : ViewModel() {
             val nextPage = QuizPage(
                     page = pageIndex,
                     pages = quizDetails!!.questions.size,
+                    quizTitle = quizDetails!!.title,
                     question = nextQuestion
             )
             quizDetailsLiveData.setValue(Response.success(nextPage))

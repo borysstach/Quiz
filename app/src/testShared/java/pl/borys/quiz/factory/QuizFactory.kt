@@ -27,6 +27,7 @@ object QuizFactory {
     fun getQuizPage() = QuizPage(
             page = 0,
             pages = QUESTIONS,
+            quizTitle = TITLE,
             question = QuestionFactory.getQuestion()
     )
 }

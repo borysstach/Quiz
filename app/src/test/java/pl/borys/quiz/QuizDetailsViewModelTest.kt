@@ -81,7 +81,12 @@ class QuizDetailsViewModelTest {
         quizDetailsVM.observeQuizPages(QUIZ_ID).observeForever(observer)
         Thread.sleep(1000)
 
-        val expectedPage = QuizPage(page = 0, pages = data.questions.size, question = data.questions[0])
+        val expectedPage = QuizPage(
+                page = 0,
+                pages = data.questions.size,
+                quizTitle = data.title,
+                question = data.questions[0]
+        )
         verify(observer).onChanged(Response.success(expectedPage))
     }
 

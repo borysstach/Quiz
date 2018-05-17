@@ -8,5 +8,6 @@ import pl.borys.quiz.model.dto.Question
 data class QuizPage(
         val page: Int,
         val pages: Int,
+        val quizTitle: String,
         val question: Question
 ): Parcelable

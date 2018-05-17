@@ -5,10 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.quizzes_list_activity.*
+import kotlinx.android.synthetic.main.quiz_details_activity.*
 import org.kodein.di.generic.instance
 import pl.borys.quiz.R
 import pl.borys.quiz.common.extensions.extra
+import pl.borys.quiz.common.extensions.loadWithPlaceholder
 import pl.borys.quiz.common.view.hideLoader
 import pl.borys.quiz.common.view.showError
 import pl.borys.quiz.common.view.showLoader
@@ -49,7 +50,16 @@ class QuizDetailsActivity : AppCompatActivity() {
     }
 
     private val showQuiz: (QuizPage?) -> Unit = { quizPage ->
-
+        quizPage?.let {
+            progressBar.apply {
+                max = it.pages
+                progress = it.page
+            }
+            quizTitle.text = it.quizTitle
+            questionImage.loadWithPlaceholder(it.question.image)
+            question.text = it.question.text
+            //TODO: bind answers
+        }
     }
 
     private val showError: (Throwable?) -> Unit = {
