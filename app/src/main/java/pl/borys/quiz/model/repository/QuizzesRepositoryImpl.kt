@@ -16,7 +16,7 @@ class QuizzesRepositoryImpl : QuizzesRepository {
     }
 
     override fun getQuizDetails(quizId: Long): Observable<QuizDetails> =
-            Observable.error(Exception("Not implemented yet :("))
+            quizApi.getQuizDetails(quizId)
 
     companion object {
         const val ITEMS_PER_PAGE = 50
