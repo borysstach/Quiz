@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.quizzes_list_activity.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 import org.kodein.di.generic.instance
 import pl.borys.quiz.R
 import pl.borys.quiz.common.view.RecyclerViewMargin
@@ -18,7 +16,6 @@ import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.usecase.quizDetails.view.QuizDetailsActivity
 import pl.borys.quiz.usecase.quizzesList.QuizzesListResponse
 import pl.borys.quiz.usecase.quizzesList.QuizzesListViewModel
-import pl.borys.quiz.usecase.quizzesList.events.QuizCardClickedEvent
 
 class QuizzesListActivity : AppCompatActivity() {
 
@@ -28,11 +25,7 @@ class QuizzesListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.quizzes_list_activity)
         getQuizzesList()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
+        observeViewModelActions()
     }
 
     private fun getQuizzesList() {
@@ -69,15 +62,12 @@ class QuizzesListActivity : AppCompatActivity() {
         coordinator.showError { getQuizzesList() }
     }
 
-    @Subscribe
-    fun onQuizCardCLicked(event: QuizCardClickedEvent) {
-        QuizDetailsActivity.start(this, event.id)
-    }
-
-
-    override fun onStop() {
-        super.onStop()
-        EventBus.getDefault().unregister(this)
+    private fun observeViewModelActions() {
+        quizzesListVM.observeStartQuizDetailsAction(this, Observer { quizId ->
+            quizId?.let{
+                QuizDetailsActivity.start(this, quizId)
+            }
+        })
     }
 
 }

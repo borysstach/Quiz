@@ -28,6 +28,7 @@ class QuizDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.quiz_details_activity)
         observeQuizPages()
+        observeViewModelActions()
     }
 
     private fun observeQuizPages() {
@@ -70,6 +71,11 @@ class QuizDetailsActivity : AppCompatActivity() {
         coordinator.showError { observeQuizPages() }
     }
 
+    private fun observeViewModelActions(){
+        quizDetailsVM.observeOpenSuccessScreenAction(this, Observer {
+            //TODO: open success screen
+        })
+    }
 
     companion object {
         private const val QUIZ_ID_EXTRA = "quizIdExtra"
