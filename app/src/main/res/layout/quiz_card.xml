@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/title"
-        style="@style/TextBig"
+        style="@style/TextBigLight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_medium"
@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/userResult"
-        style="@style/TextSmall"
+        style="@style/TextSmallLight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_medium"

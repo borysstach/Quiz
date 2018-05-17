@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_tiny"
             android:layout_marginBottom="@dimen/margin_tiny"
+            style="@style/TextMediumDark"
             app:layout_constraintBottom_toTopOf="@+id/answers"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
