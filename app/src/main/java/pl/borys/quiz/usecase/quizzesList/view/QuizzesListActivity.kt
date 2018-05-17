@@ -42,7 +42,7 @@ class QuizzesListActivity : AppCompatActivity() {
     private val processResponse = Observer<QuizzesListResponse> { response ->
         response?.map(
                 onLoading = showLoader,
-                onSuccess = changeMessage,
+                onSuccess = showQuizzes,
                 onError = showError,
                 onFinish = hideLoader
         )
@@ -56,7 +56,7 @@ class QuizzesListActivity : AppCompatActivity() {
         coordinator.hideLoader()
     }
 
-    private val changeMessage: (List<QuizCard>?) -> Unit = { quizzesCards ->
+    private val showQuizzes: (List<QuizCard>?) -> Unit = { quizzesCards ->
         recycler.apply {
             val cardMarginInPixels = resources.getDimensionPixelSize(R.dimen.margin_tiny)
             addItemDecoration(RecyclerViewMargin(cardMarginInPixels))
