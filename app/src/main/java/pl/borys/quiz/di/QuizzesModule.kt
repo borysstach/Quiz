@@ -8,9 +8,11 @@ import org.kodein.di.generic.factory
 import org.kodein.di.generic.singleton
 import pl.borys.quiz.model.repository.QuizzesRepository
 import pl.borys.quiz.model.repository.QuizzesRepositoryImpl
+import pl.borys.quiz.usecase.quizDetails.QuizDetailsViewModel
 import pl.borys.quiz.usecase.quizzesList.QuizzesListViewModel
 
 val quizzesModule = Kodein.Module {
     bind<QuizzesRepository>() with singleton { QuizzesRepositoryImpl() }
     bind<QuizzesListViewModel>() with factory { activity: AppCompatActivity -> ViewModelProviders.of(activity).get(QuizzesListViewModel::class.java) }
+    bind<QuizDetailsViewModel>() with factory { activity: AppCompatActivity -> ViewModelProviders.of(activity).get(QuizDetailsViewModel::class.java) }
 }
