@@ -5,7 +5,9 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.widget.LinearLayout
+import org.greenrobot.eventbus.EventBus
 import pl.borys.quiz.model.dto.Answer
+import pl.borys.quiz.usecase.quizDetails.events.AnswerClickedEvent
 
 class AnswersListView : LinearLayout {
     constructor(context: Context?) : super(context)
@@ -14,13 +16,12 @@ class AnswersListView : LinearLayout {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 
-    private var onAnswerClickListener: (Answer) -> Unit = {}
-
     init {
         orientation = LinearLayout.VERTICAL
     }
 
     fun bind(answers: List<Answer>) {
+        removeAllViews()
         answers
                 .sortedBy { it.order }
                 .map { answer ->
@@ -35,12 +36,8 @@ class AnswersListView : LinearLayout {
 
     }
 
-    fun setOnAnswerClickListener(listener: (Answer) -> Unit) {
-        onAnswerClickListener = listener
-    }
-
     private fun answerClicked(answer: Answer) {
-        onAnswerClickListener(answer)
+        EventBus.getDefault().post(AnswerClickedEvent(answer))
     }
 
 

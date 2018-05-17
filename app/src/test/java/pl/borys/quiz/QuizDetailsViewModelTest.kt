@@ -20,6 +20,7 @@ import pl.borys.quiz.common.viewModel.Response
 import pl.borys.quiz.di.KodeinProvider
 import pl.borys.quiz.di.TestKodein
 import pl.borys.quiz.extensions.mock
+import pl.borys.quiz.factory.AnswersFactory
 import pl.borys.quiz.factory.QuizFactory
 import pl.borys.quiz.model.dto.QuizCard
 import pl.borys.quiz.model.dto.QuizDetails
@@ -27,6 +28,7 @@ import pl.borys.quiz.model.repository.QuizzesRepository
 import pl.borys.quiz.usecase.quizDetails.QuizDetailsViewModel
 import pl.borys.quiz.usecase.quizDetails.QuizPageResponse
 import pl.borys.quiz.usecase.quizDetails.dto.QuizPage
+import pl.borys.quiz.usecase.quizDetails.events.AnswerClickedEvent
 import java.util.concurrent.TimeUnit
 
 
@@ -86,6 +88,22 @@ class QuizDetailsViewModelTest {
                 pages = data.questions.size,
                 quizTitle = data.title,
                 question = data.questions[0]
+        )
+        verify(observer).onChanged(Response.success(expectedPage))
+    }
+
+    @Test
+    fun getQuizDetails_ReturnSecondQuestionQuestion() {
+        val data = QuizFactory.getQuizDetails()
+        initWithQuizzesList(quizDetails = data, delay = 0)
+        quizDetailsVM.observeQuizPages(QUIZ_ID).observeForever(observer)
+        quizDetailsVM.onAnswerClicked(AnswerClickedEvent(AnswersFactory.getAnswer()))
+
+        val expectedPage = QuizPage(
+                page = 1,
+                pages = data.questions.size,
+                quizTitle = data.title,
+                question = data.questions[1]
         )
         verify(observer).onChanged(Response.success(expectedPage))
     }

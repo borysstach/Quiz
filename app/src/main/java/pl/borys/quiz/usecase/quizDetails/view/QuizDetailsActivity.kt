@@ -62,9 +62,6 @@ class QuizDetailsActivity : AppCompatActivity() {
             question.text = it.question.text
             answers.apply {
                 bind(it.question.answers)
-                setOnAnswerClickListener {
-                    //TODO: post event to viewModel
-                }
             }
         }
     }

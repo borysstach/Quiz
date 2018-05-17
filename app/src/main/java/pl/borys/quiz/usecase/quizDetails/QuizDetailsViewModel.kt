@@ -6,6 +6,8 @@ import android.arch.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.kodein.di.generic.instance
 import pl.borys.quiz.common.viewModel.Response
 import pl.borys.quiz.di.KodeinProvider
@@ -13,6 +15,7 @@ import pl.borys.quiz.model.dto.QuizDetails
 import pl.borys.quiz.model.dto.QuizId
 import pl.borys.quiz.model.repository.QuizzesRepository
 import pl.borys.quiz.usecase.quizDetails.dto.QuizPage
+import pl.borys.quiz.usecase.quizDetails.events.AnswerClickedEvent
 
 typealias QuizPageResponse = Response<QuizPage>
 
@@ -21,7 +24,11 @@ class QuizDetailsViewModel : ViewModel() {
     private val quizzesRepository: QuizzesRepository by KodeinProvider.kodeinInstance.instance()
     private var quizDisposable: Disposable? = null
     private var quizDetails: QuizDetails? = null
-    private var answers: List<Boolean> = listOf()
+    private var answers = mutableListOf<Boolean>()
+
+    init{
+        EventBus.getDefault().register(this)
+    }
 
     fun observeQuizPages(quizId: QuizId): LiveData<QuizPageResponse> {
         val neverCalled = quizDetails == null
@@ -30,6 +37,17 @@ class QuizDetailsViewModel : ViewModel() {
             getQuizDetailsFromRepo(quizId)
         }
         return quizDetailsLiveData
+    }
+
+    @Subscribe
+    fun onAnswerClicked(event: AnswerClickedEvent) {
+        postLoading()
+        answers.add(event.answer.isCorrect)
+        if (answers.size < quizDetails?.questions?.size ?: 0) {
+            postNextQuestion()
+        } else {
+            //TODO: open success screen
+        }
     }
 
     private fun getQuizDetailsFromRepo(quizId: QuizId) {
@@ -52,7 +70,7 @@ class QuizDetailsViewModel : ViewModel() {
     }
 
     private fun postNextQuestion() {
-        if(quizDetails != null) {
+        if (quizDetails != null) {
             val pageIndex = answers.size
             val nextQuestion = quizDetails!!.questions[pageIndex]
             val nextPage = QuizPage(
@@ -75,6 +93,7 @@ class QuizDetailsViewModel : ViewModel() {
 
     override fun onCleared() {
         quizDisposable?.dispose()
+        EventBus.getDefault().unregister(this)
         super.onCleared()
     }
 }
