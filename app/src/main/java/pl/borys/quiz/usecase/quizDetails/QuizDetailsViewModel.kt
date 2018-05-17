@@ -15,12 +15,13 @@ import pl.borys.quiz.model.dto.QuizId
 import pl.borys.quiz.model.repository.QuizzesRepository
 import pl.borys.quiz.usecase.quizDetails.dto.QuizPage
 import pl.borys.quiz.usecase.quizDetails.events.AnswerClickedEvent
+import pl.borys.quiz.usecase.success.dto.SuccessScreenStartBundle
 
 typealias QuizPageResponse = Response<QuizPage>
 
 class QuizDetailsViewModel : ViewModel() {
     private val quizDetailsLiveData: MutableLiveData<QuizPageResponse> = MutableLiveData()
-    private val openSuccessScreenAction = ActionLiveData<List<Boolean>>()
+    private val openSuccessScreenAction = ActionLiveData<SuccessScreenStartBundle>()
     private val quizzesRepository: QuizzesRepository by KodeinProvider.kodeinInstance.instance()
     private var quizDisposable: Disposable? = null
     private var quizDetails: QuizDetails? = null
@@ -30,7 +31,7 @@ class QuizDetailsViewModel : ViewModel() {
         EventBus.getDefault().register(this)
     }
 
-    fun observeOpenSuccessScreenAction(lifecycleOwner: LifecycleOwner, observer: Observer<List<Boolean>?>) {
+    fun observeOpenSuccessScreenAction(lifecycleOwner: LifecycleOwner, observer: Observer<SuccessScreenStartBundle?>) {
         openSuccessScreenAction.observe(lifecycleOwner, observer)
     }
 
@@ -41,7 +42,12 @@ class QuizDetailsViewModel : ViewModel() {
         if (answers.size < quizDetails?.questions?.size ?: 0) {
             postNextQuestion()
         } else {
-            openSuccessScreenAction.sendAction(answers)
+            openSuccessScreenAction.sendAction(
+                    SuccessScreenStartBundle(
+                            quizId = quizDetails!!.id,
+                            answers = answers
+                    )
+            )
         }
     }
 

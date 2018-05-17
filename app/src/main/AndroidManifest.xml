@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".usecase.quizDetails.view.QuizDetailsActivity"/>
+        <activity android:name=".usecase.success.SuccessScreenActivity"/>
     </application>
 
 </manifest>
